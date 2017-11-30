@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars,no-undef */
 (function () {
     const form = document.querySelector('#search-form');
     const searchField = document.querySelector('#search-keyword');
@@ -16,6 +17,10 @@
 
         //UNSPLASHED API
         const unsplashRequest = new XMLHttpRequest();
+        function requestError(err, type) {
+            console.log(err);
+        }
+
 
         $.ajax({
             url: `https://api.unsplash.com/search/photos?page=1&query=${searchedForText}`,
@@ -40,7 +45,7 @@
                 htmlContent = '<div class="error-no-image">No images available </div>';
             }
             responseContainer.insertAdjacentHTML('afterbegin', htmlContent);
-        };
+        }
 
         //NYT API
         $.ajax({
@@ -55,12 +60,11 @@
 
             if (data && data.response.docs && data.response.docs[0]) {
 
-                htmlContent = '<ul>' + data.response.docs.map(article = > `<li class="article">
+                htmlContent = '<ul>' + data.response.docs.map(article => `<li class="article">
                     <h1><a href="${article.web_url}" target="_blank">${article.headline.print_headline}</h1></a>
                     <h2>${article.headline.main}</h2>
                     <p>${article.snippet}</p></li>`
-            ).
-                join("") + '</ul>'
+                ).join('') + '</ul>';
 
 
             } else {
@@ -68,7 +72,7 @@
             }
 
             responseContainer.insertAdjacentHTML('afterend', htmlContent);
-        };
+        }
 
     });
 })();
